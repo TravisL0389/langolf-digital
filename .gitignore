@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+
+# next.js build output
+.next/
+out/
+
+# testing
+coverage/
+
+# macOS
+.DS_Store
+__MACOSX/
+
+# logs
+*.log
+npm-debug.log*
+
+# asset archives / temporary material
+*.zip
+*.tar
+*.tar.gz
+langolf-project-visuals/
+tmp/
+
+# environment files
+.env
+.env.local
+.env.*.local
+
+# keep the documented template
+!.env.example
+
+# typescript
+*.tsbuildinfo
