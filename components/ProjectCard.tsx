@@ -21,8 +21,9 @@ export function ProjectCard({ project, isSelected, onSelect }: ProjectCardProps)
     <Link
       href={href}
       aria-label={`View ${project.title} project`}
+      onPointerDown={(event) => event.stopPropagation()}
       onClick={(event) => event.stopPropagation()}
-      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line-strong bg-surface text-ink transition-colors hover:border-accent hover:text-accent focus-visible:border-accent"
+      className="relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-line-strong bg-surface text-ink transition-colors hover:border-accent hover:text-accent focus-visible:border-accent"
     >
       <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
     </Link>
@@ -82,14 +83,14 @@ export function ProjectCard({ project, isSelected, onSelect }: ProjectCardProps)
       <AnimatePresence initial={false}>
         {isSelected && (
           reduceMotion ? (
-            <span className="absolute bottom-5 right-5">{arrow}</span>
+            <span className="pointer-events-auto absolute bottom-5 right-5 z-10">{arrow}</span>
           ) : (
             <motion.span
               initial={{ opacity: 0, x: -4, scale: 0.96 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -4, scale: 0.96 }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
-              className="absolute bottom-5 right-5"
+              className="pointer-events-auto absolute bottom-5 right-5 z-10"
             >
               {arrow}
             </motion.span>
