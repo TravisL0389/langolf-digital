@@ -1,23 +1,43 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import type { Project } from '@/types/project';
 import { ProjectVisual } from './ProjectVisual';
 import { StatusBadge } from './StatusBadge';
 
 interface ProjectCardProps {
   project: Project;
+  isSelected: boolean;
+  onSelect: () => void;
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, isSelected, onSelect }: ProjectCardProps) {
   const href = `/work/${project.slug}`;
   const hasLiveBuild = Boolean(project.demo?.url);
+  const reduceMotion = useReducedMotion();
+
+  const arrow = (
+    <Link
+      href={href}
+      aria-label={`View ${project.title} project`}
+      onClick={(event) => event.stopPropagation()}
+      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line-strong bg-surface text-ink transition-colors hover:border-accent hover:text-accent focus-visible:border-accent"
+    >
+      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+    </Link>
+  );
 
   return (
-    <article className="group h-full min-w-0">
-      <Link
-        href={href}
-        className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_24px_48px_-32px_rgba(0,0,0,0.4)]"
+    <article className="group relative h-full min-w-0">
+      <button
+        type="button"
+        aria-pressed={isSelected}
+        aria-label={`Select ${project.title} project`}
+        onClick={onSelect}
+        className={`flex h-full min-w-0 w-full flex-col overflow-hidden rounded-2xl border bg-surface text-left transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_24px_48px_-32px_rgba(0,0,0,0.4)] ${
+          isSelected ? 'border-accent ring-1 ring-accent/30' : 'border-line'
+        }`}
       >
         <div className="p-2.5 pb-0">
           <ProjectVisual
@@ -48,17 +68,34 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
           <p className="mt-3.5 flex-1 text-sm leading-relaxed text-muted">{project.summary}</p>
 
-          <div className="mt-5 flex items-center justify-between border-t border-line pt-4">
+          <div className="mt-5 flex items-center justify-between border-t border-line pt-4 pr-12">
             <span className="font-mono text-[11px] uppercase tracking-wider text-faint">
               {project.year}
             </span>
             <span className="inline-flex items-center gap-1 font-mono text-[11px] font-medium uppercase tracking-wider text-ink">
               Case study
-              <ArrowUpRight className="h-3.5 w-3.5 text-faint transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink" />
             </span>
           </div>
         </div>
-      </Link>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isSelected && (
+          reduceMotion ? (
+            <span className="absolute bottom-5 right-5">{arrow}</span>
+          ) : (
+            <motion.span
+              initial={{ opacity: 0, x: -4, scale: 0.96 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -4, scale: 0.96 }}
+              transition={{ duration: 0.18, ease: 'easeOut' }}
+              className="absolute bottom-5 right-5"
+            >
+              {arrow}
+            </motion.span>
+          )
+        )}
+      </AnimatePresence>
     </article>
   );
 }

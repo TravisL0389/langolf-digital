@@ -14,6 +14,7 @@ const FILTERS: ProjectFilter[] = ['ALL', ...PROJECT_CATEGORIES];
 
 export default function WorkPage() {
   const [filter, setFilter] = useState<ProjectFilter>('ALL');
+  const [selectedProjectSlug, setSelectedProjectSlug] = useState<string | null>(null);
   const reduceMotion = useReducedMotion();
 
   const filtered = useMemo(
@@ -59,7 +60,14 @@ export default function WorkPage() {
       <div className="mt-10 grid min-w-0 grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout" initial={false}>
           {filtered.map((project, i) => {
-            const card = <ProjectCard key={project.id} project={project} />;
+            const card = (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                isSelected={selectedProjectSlug === project.slug}
+                onSelect={() => setSelectedProjectSlug(project.slug)}
+              />
+            );
             if (reduceMotion) return card;
             return (
               <motion.div
