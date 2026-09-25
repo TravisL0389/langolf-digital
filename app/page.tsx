@@ -7,8 +7,6 @@ import { CapabilitiesSection } from '@/components/CapabilitiesSection';
 import { LabSection } from '@/components/LabSection';
 import { HowIBuildSection } from '@/components/HowIBuildSection';
 import { Reveal } from '@/components/Reveal';
-import { AmbientCanvas } from '@/components/motion/AmbientCanvas';
-import { Parallax } from '@/components/motion/Parallax';
 import { Magnetic } from '@/components/motion/Magnetic';
 import { SectionTransition } from '@/components/motion/SectionTransition';
 
@@ -18,14 +16,15 @@ export default function HomePage() {
       {/* ============================= HERO ============================= */}
       <section className="bg-ambient relative overflow-hidden">
         <div className="bg-grid absolute inset-0 opacity-50" aria-hidden="true" />
-        <AmbientCanvas className="opacity-40 dark:opacity-50" />
-        <Parallax distance={18} className="pointer-events-none absolute inset-0">
+        <div
+          aria-hidden="true"
+          className="hero-orb pointer-events-none absolute inset-0"
+        >
           <div
-            aria-hidden="true"
             className="absolute -right-40 -top-40 h-[30rem] w-[30rem] rounded-full opacity-[0.14] blur-[80px]"
             style={{ background: 'var(--accent)' }}
           />
-        </Parallax>
+        </div>
 
         <div className="relative z-10 mx-auto flex min-h-[calc(100svh_-_5.5rem)] max-w-6xl flex-col justify-center px-5 sm:px-8 py-24 sm:py-32">
           <Reveal>

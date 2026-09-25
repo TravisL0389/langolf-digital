@@ -73,8 +73,10 @@ export function Navbar() {
               key={link.label}
               href={link.href}
               className={cn(
-                'text-xs font-mono tracking-widest uppercase transition-colors',
-                isActive(link.href) ? 'text-ink' : 'text-muted hover:text-ink'
+                'relative text-xs font-mono tracking-widest uppercase transition-colors after:absolute after:-bottom-2 after:left-0 after:h-px after:bg-accent after:transition-[width,opacity] after:duration-300',
+                isActive(link.href)
+                  ? 'text-ink after:w-full after:opacity-100'
+                  : 'text-muted after:w-0 after:opacity-0 hover:text-ink hover:after:w-full hover:after:opacity-100'
               )}
             >
               {link.label}

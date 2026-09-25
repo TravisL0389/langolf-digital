@@ -90,6 +90,29 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Global atmosphere stays CSS-only so the server layout has no browser runtime dependency. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(38rem 28rem at 84% 10%, var(--ambient-glow), transparent 72%),
+      radial-gradient(30rem 24rem at 12% 68%, var(--ambient-glow), transparent 74%);
+    opacity: 0.72;
+    animation: ambient-breathe 24s ease-in-out infinite alternate;
+  }
+
+  @keyframes ambient-breathe {
+    from {
+      transform: translate3d(-1%, -0.5%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(1%, 0.5%, 0) scale(1.025);
+    }
+  }
+
   ::selection {
     background-color: var(--accent-soft);
     color: var(--ink);
@@ -117,6 +140,83 @@
       var(--ambient-glow, transparent) 0%,
       transparent 100%
     );
+  }
+
+  .hero-orb {
+    animation: hero-orb-drift 26s ease-in-out infinite alternate;
+  }
+
+  @keyframes hero-orb-drift {
+    from {
+      transform: translate3d(-0.5%, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(0.5%, 1%, 0) scale(1.025);
+    }
+  }
+
+  /* Lightweight ambient geometry. All motion is transform/opacity only. */
+  .ambient-node {
+    position: absolute;
+    border-radius: 999px;
+    background: var(--accent);
+    opacity: 0.28;
+    animation: ambient-drift 20s ease-in-out infinite alternate;
+  }
+
+  .ambient-orbit {
+    position: absolute;
+    left: 50%;
+    top: 38%;
+    width: min(58vw, 46rem);
+    aspect-ratio: 1.9;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    opacity: 0.26;
+    transform: translate(-50%, -50%) rotate(-14deg);
+  }
+
+  .ambient-orbit-one {
+    animation: ambient-orbit 32s ease-in-out infinite alternate;
+  }
+
+  .ambient-orbit-two {
+    width: min(42vw, 32rem);
+    opacity: 0.16;
+    transform: translate(-50%, -50%) rotate(32deg);
+    animation: ambient-orbit-reverse 38s ease-in-out infinite alternate;
+  }
+
+  .ambient-quiet .ambient-node,
+  .ambient-quiet .ambient-orbit {
+    animation: none;
+  }
+
+  @keyframes ambient-drift {
+    from {
+      transform: translate3d(-5px, 4px, 0);
+    }
+    to {
+      transform: translate3d(7px, -6px, 0);
+    }
+  }
+
+  @keyframes ambient-orbit {
+    from {
+      transform: translate(-50%, -50%) rotate(-14deg) scale(0.98);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(-8deg) scale(1.02);
+    }
+  }
+
+  @keyframes ambient-orbit-reverse {
+    from {
+      transform: translate(-50%, -50%) rotate(32deg) scale(1.02);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(25deg) scale(0.98);
+    }
   }
 
   /* Live hairline sweep used by SectionTransition for visual continuity. */
@@ -162,6 +262,12 @@
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  body::before {
+    animation: none;
+  }
+  .hero-orb {
+    animation: none;
   }
   *,
   *::before,

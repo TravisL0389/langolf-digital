@@ -8,7 +8,6 @@ import { PROJECTS } from '@/data/projects';
 import { PROJECT_CATEGORIES, type ProjectFilter } from '@/types/project';
 import { WorkFilter } from '@/components/WorkFilter';
 import { ProjectCard } from '@/components/ProjectCard';
-import { BuildMap } from '@/components/interactive/BuildMap';
 
 const FILTERS: ProjectFilter[] = ['ALL', ...PROJECT_CATEGORIES];
 
@@ -41,11 +40,7 @@ export default function WorkPage() {
         </p>
       </div>
 
-      <div className="mt-12">
-        <BuildMap projects={PROJECTS} />
-      </div>
-
-      <div className="mt-14 flex flex-col gap-4 border-b border-line pb-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-12 flex flex-col gap-4 border-b border-line pb-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex min-w-0 items-center justify-between gap-4 sm:justify-start">
           <WorkFilter categories={FILTERS} selectedCategory={filter} onSelectCategory={setFilter} />
         </div>

@@ -23,9 +23,12 @@ export function ProjectCard({ project, isSelected, onSelect }: ProjectCardProps)
       aria-label={`View ${project.title} project`}
       onPointerDown={(event) => event.stopPropagation()}
       onClick={(event) => event.stopPropagation()}
-      className="relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-line-strong bg-surface text-ink transition-colors hover:border-accent hover:text-accent focus-visible:border-accent"
+      className="group/arrow relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-line-strong bg-surface text-ink shadow-sm transition-[border-color,background-color,transform,color] duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-accent-soft hover:text-accent focus-visible:border-accent"
     >
-      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+      <ArrowUpRight
+        className="h-3.5 w-3.5 transition-transform duration-200 group-hover/arrow:translate-x-0.5 group-hover/arrow:-translate-y-0.5"
+        aria-hidden="true"
+      />
     </Link>
   );
 
@@ -36,14 +39,14 @@ export function ProjectCard({ project, isSelected, onSelect }: ProjectCardProps)
         aria-pressed={isSelected}
         aria-label={`Select ${project.title} project`}
         onClick={onSelect}
-        className={`flex h-full min-w-0 w-full flex-col overflow-hidden rounded-2xl border bg-surface text-left transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_24px_48px_-32px_rgba(0,0,0,0.4)] ${
-          isSelected ? 'border-accent ring-1 ring-accent/30' : 'border-line'
+        className={`flex h-full min-w-0 w-full flex-col overflow-hidden rounded-2xl border bg-surface text-left transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_24px_48px_-32px_rgba(0,0,0,0.4)] ${
+          isSelected ? 'border-accent ring-1 ring-accent/30 shadow-[0_22px_50px_-34px_var(--accent)]' : 'border-line'
         }`}
       >
         <div className="p-2.5 pb-0">
           <ProjectVisual
             project={project}
-            className="transition-transform duration-500 will-change-transform group-hover:-translate-y-1 group-hover:scale-[1.02]"
+            className="transition-[filter,transform] duration-500 will-change-transform group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:brightness-[1.02]"
           />
         </div>
 

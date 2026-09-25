@@ -89,7 +89,7 @@ export function ProjectVisual({
               ? '(max-width: 768px) 100vw, (max-width: 1280px) 85vw, 60vw'
               : '(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw'
           }
-          className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+          className="object-cover object-center transition-[filter,transform] duration-500 ease-out group-hover:scale-[1.02] group-hover:brightness-[1.02]"
           quality={88}
           draggable={false}
         />

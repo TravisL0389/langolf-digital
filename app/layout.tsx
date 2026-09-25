@@ -61,7 +61,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <Navbar />
-        <main id="main-content" className="w-full flex-1">
+        <main id="main-content" className="relative z-10 w-full flex-1">
           {children}
         </main>
         <Footer />

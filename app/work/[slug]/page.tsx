@@ -18,7 +18,6 @@ import { cn } from '@/lib/utils';
 import { ProjectVisual } from '@/components/ProjectVisual';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Reveal } from '@/components/Reveal';
-import { Parallax } from '@/components/motion/Parallax';
 import { PrototypePreview } from '@/components/interactive/PrototypePreview';
 
 const SITE_URL = 'https://langolfdigital.com';
@@ -274,9 +273,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
       {/* ============================ HERO MEDIA ============================ */}
       <div className="mt-14 min-w-0">
-        <Parallax distance={14}>
-          <ProjectVisual project={project} variant="featured" />
-        </Parallax>
+        <ProjectVisual project={project} variant="featured" />
         <p className="mt-3 flex items-center justify-center gap-2 text-center font-mono text-[10px] uppercase tracking-[0.15em] text-faint">
           <span
             className="h-1.5 w-1.5 rounded-full"
